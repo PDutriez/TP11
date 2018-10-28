@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/nbproject/LED.o \
 	${OBJECTDIR}/nbproject/puerto.o
 
 
@@ -68,11 +67,6 @@ ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
-
-${OBJECTDIR}/nbproject/LED.o: nbproject/LED.c
-	${MKDIR} -p ${OBJECTDIR}/nbproject
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/nbproject/LED.o nbproject/LED.c
 
 ${OBJECTDIR}/nbproject/puerto.o: nbproject/puerto.c
 	${MKDIR} -p ${OBJECTDIR}/nbproject
