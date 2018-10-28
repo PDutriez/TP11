@@ -6,7 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
 #include "puerto.h"
-
+#include "allegro5/color.h"
 /*******************************************************************************
  * Definiciones
  ******************************************************************************/
@@ -35,8 +35,10 @@ int main ()
     /***************************************************************************
     * Display
     ***************************************************************************/
-    ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_BITMAP  *image   = NULL;
+    ALLEGRO_DISPLAY *display  = NULL;
+    ALLEGRO_BITMAP  *port_a   = NULL;
+    ALLEGRO_BITMAP  *led_off  = NULL;
+    ALLEGRO_BITMAP  *led_on   = NULL;
 
     if(!al_init()) 
     {
@@ -49,9 +51,11 @@ int main ()
             fprintf(stderr, "failed to initialize image addon !\n");
             return -1;
     }
-
-    image = al_load_bitmap("image.jpg");
-    if(!image) 
+    /***************************************************************************
+    * Definicion de Port_A
+    ***************************************************************************/
+    port_a = al_load_bitmap("PORTA.jpg");
+    if(!port_a) 
     {
             fprintf(stderr, "failed to load image !\n");
             return 0;
@@ -60,15 +64,53 @@ int main ()
     display = al_create_display(951,310);
     if(!display) 
     {
-            al_destroy_bitmap(image);
+            al_destroy_bitmap(port_a);
       fprintf(stderr, "failed to create display!\n");
             return -1;
     }
     //void al_draw_bitmap(ALLEGRO_BITMAP *bitmap, float dx, float dy, int flags) 
-    al_draw_bitmap(image, 0, 0, 0);//flags(normalmente en cero, ver doc. para rotar etc)
+    al_draw_bitmap(port_a, 0, 0, 0);//flags(normalmente en cero, ver doc. para rotar etc)
 
     al_flip_display();
     al_rest(5);
+    /***************************************************************************
+    * Definicion de led_off
+    ***************************************************************************/
+    led_off = al_load_bitmap("LEDOFF.jpg");
+    if(!led_off) 
+    {
+            fprintf(stderr, "failed to load image !\n");
+            return 0;
+    }
+
+    display = al_create_display(102,94);
+    if(!display) 
+    {
+            al_destroy_bitmap(led_off);
+      fprintf(stderr, "failed to create display!\n");
+            return -1;
+    }
+    //void al_draw_bitmap(ALLEGRO_BITMAP *bitmap, float dx, float dy, int flags) 
+    al_draw_bitmap(led_off, 0, 0, 0);//flags(normalmente en cero, ver doc. para rotar etc)
+    /***************************************************************************
+    * Definicion de led_on
+    ***************************************************************************/
+    led_on = al_load_bitmap("LEDON.jpg");
+    if(!led_on) 
+    {
+            fprintf(stderr, "failed to load image !\n");
+            return 0;
+    }
+
+    display = al_create_display(102,94);
+    if(!display) 
+    {
+            al_destroy_bitmap(led_on);
+      fprintf(stderr, "failed to create display!\n");
+            return -1;
+    }
+    //void al_draw_bitmap(ALLEGRO_BITMAP *bitmap, float dx, float dy, int flags) 
+    al_draw_bitmap(led_on, 0, 0, 0);//flags(normalmente en cero, ver doc. para rotar etc)
     /***************************************************************************
     * Input y respuesta
     ***************************************************************************/
@@ -135,8 +177,9 @@ int main ()
         * apreciar los cambios realizados
         ***********************************************************************/
         al_destroy_display(display);
-	al_destroy_bitmap(image);
-
+	al_destroy_bitmap(port_a);
+        al_destroy_bitmap(led_off);
+        al_destroy_bitmap(led_on);
     }
 
     return 0;
