@@ -1,6 +1,11 @@
 #ifndef PUERTO_H
 #define PUERTO_H
 /*******************************************************************************
+* CONSTANTES
+*******************************************************************************/
+#define LUINT16 sizeof(uint16_t)*8
+#define LUINT8 sizeof(uint8_t)*8
+/*******************************************************************************
 * Estas 3 funciones se encargan de enmascar los puertos de distintas maneras,
 * su logica entre ellas es muy similar pero defieren en la funcion que usan.
 * Se les debe mandar por ASCII el puerto deseado ('a','b','d') y la mascara a
@@ -18,5 +23,5 @@ void bitToggle(char puerto,int bit); //Cambia al estado opuesto un bit
 void bitClr(char puerto,int bit); //Apaga un bit
 void bitSet(char puerto,int bit); //Prende un bit
 // bitGet imprime el valor de un bit de un puerto especifico
-void bitGet(char puerto,int bit);
+int bitGet(char puerto,int bit);
 #endif

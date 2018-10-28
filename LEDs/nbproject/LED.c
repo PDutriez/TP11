@@ -12,7 +12,6 @@
 static int input;
 /******************************************************************************/
 
-
 /*******************************************************************************
  * función principal, analiza el input y responde segun corresponda
  ******************************************************************************/
@@ -26,14 +25,20 @@ int main ()
         ***********************************************************************/
         if((input <= '9') && (input >= '0'))
         {
-            if ((input <= '7') && (input >= '0'))
+            int counter=0;
+            do{
+                counter=(counter*10)+input;
+              }
+            while((input=getchar()) != '\n');
+//No se va a utilizar ahora pero en un futuro necesitaremos entrada de 2 digitos
+            if ((counter <= '7') && (counter >= '0'))
             {
-                input-='0';
-                bitSet ('a', input);
+                counter-='0';
+                bitSet ('a', counter);
+                show_port ('a');
             }
             else
             printf("\nValor fuera del rango.\n");
-        show_port ('a');
         }
         /***********************************************************************
         * como el puerto solo tiene 8 espacios avisa en caso de que el numero
@@ -46,7 +51,7 @@ int main ()
         else if ((input == 't') || (input == 'T'))
         {
             maskToggle ('a', MASK);
-        show_port ('a');
+            show_port ('a');
         }
         /***********************************************************************
         * si se presiona la letra 'S' prende todos los bits
@@ -54,7 +59,7 @@ int main ()
         else if ((input == 's') || (input == 'S'))
         {
             maskOn ('a', MASK);
-        show_port ('a');
+            show_port ('a');
         }
         /***********************************************************************
         * si se presiona la letra 'C' apaga todos los bits
@@ -62,7 +67,7 @@ int main ()
         else if ((input == 'c') || (input == 'C'))
         {
             maskOff ('a', MASK);
-        show_port ('a');
+            show_port ('a');
         }
         /***********************************************************************
         * en caso de tocar cualquier otra letra (excepto la Q, pues con ella
@@ -86,13 +91,13 @@ int main ()
  ******************************************************************************/
 void show_port (char Port_A)
 {
-    printf ("\nEstado del puerto A:\n");
+    printf ("\n\nEstado del puerto A:\n");
     /***************************************************************************
     * toma cada bit e imprime el valor que le corresponde en la pantalla
     ***************************************************************************/
     for (int bit_number=7; bit_number>=0; --bit_number)
     {
-        bitGet(Port_A,bit_number);
+        printf("\nRegistro:%c\tBit:%d\tValor:%d\n",Port_A,bit_number,bitGet(Port_A,bit_number));
     }
     printf ("\n");
 }
